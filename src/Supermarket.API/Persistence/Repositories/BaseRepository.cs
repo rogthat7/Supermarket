@@ -4,9 +4,9 @@ namespace Supermarket.API.Persistence.Repositories
 {
     public abstract class BaseRepository
     {
-        protected readonly AppDbContext _context;
+        protected readonly SupermarketDBContext _context;
 
-        public BaseRepository(AppDbContext context)
+        public BaseRepository(SupermarketDBContext context)
         {
             _context = context;
         }

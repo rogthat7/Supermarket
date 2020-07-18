@@ -11,7 +11,7 @@ namespace Supermarket.API.Persistence.Repositories
 {
 	public class ProductRepository : BaseRepository, IProductRepository
 	{
-		public ProductRepository(AppDbContext context) : base(context) { }
+		public ProductRepository(SupermarketDBContext context) : base(context) { }
 
 		public async Task<QueryResult<Product>> ListAsync(ProductsQuery query)
 		{
@@ -47,7 +47,7 @@ namespace Supermarket.API.Persistence.Repositories
 		{
 			return await _context.Products
 								 .Include(p => p.Category)
-								 .FirstOrDefaultAsync(p => p.Id == id); // Since Include changes the method's return type, we can't use FindAsync
+								 .FirstOrDefaultAsync(p => p.PId == id); // Since Include changes the method's return type, we can't use FindAsync
 		}
 
 		public async Task AddAsync(Product product)

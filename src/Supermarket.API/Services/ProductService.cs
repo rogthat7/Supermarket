@@ -75,9 +75,9 @@ namespace Supermarket.API.Services
             if (existingCategory == null)
                 return new ProductResponse("Invalid category.");
 
-            existingProduct.Name = product.Name;
+            existingProduct.PName = product.PName;
             existingProduct.UnitOfMeasurement = product.UnitOfMeasurement;
-            existingProduct.QuantityInPackage = product.QuantityInPackage;
+            existingProduct.PQuantityInStock = product.PQuantityInStock;
             existingProduct.CategoryId = product.CategoryId;
 
             try
