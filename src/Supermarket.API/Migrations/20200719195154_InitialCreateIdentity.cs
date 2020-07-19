@@ -40,7 +40,9 @@ namespace Supermarket.API.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    AadharNumber = table.Column<int>(nullable: false),
+                    Address = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -212,6 +214,12 @@ namespace Supermarket.API.Migrations
                 name: "IX_AspNetUserRoles_RoleId",
                 table: "AspNetUserRoles",
                 column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_AadharNumber",
+                table: "AspNetUsers",
+                column: "AadharNumber",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",

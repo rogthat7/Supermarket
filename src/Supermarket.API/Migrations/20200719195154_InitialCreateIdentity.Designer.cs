@@ -10,7 +10,7 @@ using Supermarket.API.Data;
 namespace Supermarket.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200718152719_InitialCreateIdentity")]
+    [Migration("20200719195154_InitialCreateIdentity")]
     partial class InitialCreateIdentity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -242,8 +242,14 @@ namespace Supermarket.API.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
+                    b.Property<int>("AadharNumber")
+                        .HasColumnType("integer");
+
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("text");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -290,6 +296,9 @@ namespace Supermarket.API.Migrations
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AadharNumber")
+                        .IsUnique();
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");

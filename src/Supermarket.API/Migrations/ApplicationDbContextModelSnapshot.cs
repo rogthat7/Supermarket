@@ -240,8 +240,14 @@ namespace Supermarket.API.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
+                    b.Property<int>("AadharNumber")
+                        .HasColumnType("integer");
+
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("text");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -288,6 +294,9 @@ namespace Supermarket.API.Migrations
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AadharNumber")
+                        .IsUnique();
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
