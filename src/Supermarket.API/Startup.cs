@@ -33,7 +33,6 @@ namespace Supermarket.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -60,16 +59,19 @@ namespace Supermarket.API
             services.AddScoped<IProductService, ProductService>();
 
             // In production, the Angular files will be served from this directory
+            services.AddAutoMapper(typeof(Startup));
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-            services.AddAutoMapper(typeof(Startup));
+            services.AddMemoryCache();
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSwagger();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -94,6 +96,10 @@ namespace Supermarket.API
             app.UseAuthentication();
             app.UseIdentityServer();
             app.UseAuthorization();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
