@@ -22,7 +22,9 @@ namespace Supermarket.API.Controllers
     public class AccountController : BaseController  
     {     
         private readonly UserManager<ApplicationUser> userManager;  
-        private readonly SignInManager<ApplicationUser> signInManager;  
+        private readonly SignInManager<ApplicationUser> signInManager;
+        private Microsoft.AspNetCore.Identity.SignInResult result;
+
         public AccountController(UserManager<ApplicationUser> userManager,  
             SignInManager<ApplicationUser> signInManager, IConfiguration _config) : base(_config) 
         {  
@@ -80,7 +82,7 @@ namespace Supermarket.API.Controllers
                 if (user != null)    
                 {    
                     var tokenString = GenerateJSONWebToken(user);    
-                    response = Ok(new Result{ token = "bearer" + tokenString });    
+                    response = Ok(new Result{ token = "bearer" + " "+ tokenString });    
                 }    
             } 
     
@@ -104,15 +106,28 @@ namespace Supermarket.API.Controllers
     
         private async Task<ApplicationUser> AuthenticateUser(RegisteredUser login)    
         {    
-            ApplicationUser user = null;    
-            var result = await signInManager.PasswordSignInAsync(login.Email, login.Password, false, false);
-                if(!result.Succeeded)
-                result = await signInManager.PasswordSignInAsync(login.UserName, login.Password, false, false);
+            ApplicationUser user = null; 
+            ApplicationUser phoneUser = null; 
+            var users = await userManager.Users.ToListAsync();
+
+            
+            if(!string.IsNullOrEmpty(login.PhoneNumber))
+                phoneUser = users.Find(p => p.PhoneNumber == login.PhoneNumber ) ; 
+
+             if(!string.IsNullOrEmpty(login.Email))  
+                result = await signInManager.PasswordSignInAsync(login.Email, login.Password, false, false);
+                else if(!string.IsNullOrEmpty(login.PhoneNumber))
+                    result = await signInManager.PasswordSignInAsync(phoneUser.Email, login.Password, false, false);
+                    else
+                    result = await signInManager.PasswordSignInAsync(login.UserName, login.Password, false, false);
             //Validate the User Credentials     
             if (result.Succeeded)    
             {    
-               var users = await userManager.Users.ToListAsync();
-               user = users.Find(p => p.Email == login.Email )  ;
+               user = users.Find(p => p.Email == login.Email ) ;
+               if(user == null)
+                user = users.Find(p => p.PhoneNumber == login.PhoneNumber ) ;
+                if(user == null)
+                user = users.Find(p => p.UserName == login.UserName ) ;
             }    
             return user ;    
         }  

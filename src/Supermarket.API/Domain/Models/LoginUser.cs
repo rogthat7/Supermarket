@@ -11,7 +11,6 @@ namespace Supermarket.API.Domain.Models
         public override string PhoneNumber { get; set; }
         [EmailAddress]
         public override string Email { get; set; }
-        [JsonIgnore]
         public override string UserName { get; set; }
         [JsonIgnore]
         public override string FirstName { get; set; }
