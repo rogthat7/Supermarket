@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Supermarket.API.Migrations.SupermarketDB
 {
-    public partial class InitialCreateSuperMarket : Migration
+    public partial class SuperMarketTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -10,8 +10,8 @@ using Supermarket.API.Data;
 namespace Supermarket.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200719195154_InitialCreateIdentity")]
-    partial class InitialCreateIdentity
+    [Migration("20200729192911_UserChangesAddedUserId")]
+    partial class UserChangesAddedUserId
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -240,27 +240,40 @@ namespace Supermarket.API.Migrations
             modelBuilder.Entity("Supermarket.API.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("text");
 
-                    b.Property<int>("AadharNumber")
-                        .HasColumnType("integer");
+                    b.Property<string>("AadharNumber")
+                        .HasColumnType("character varying(12)")
+                        .HasMaxLength(12);
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
 
                     b.Property<string>("Address")
-                        .HasColumnType("text");
+                        .HasColumnType("character varying(100)")
+                        .HasMaxLength(100);
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("text");
 
                     b.Property<string>("Email")
-                        .HasColumnType("character varying(256)")
-                        .HasMaxLength(256);
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
@@ -277,10 +290,12 @@ namespace Supermarket.API.Migrations
                         .HasMaxLength(256);
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("text");
+                        .HasColumnType("character varying(256)")
+                        .HasMaxLength(256);
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("text");
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("boolean");
@@ -291,14 +306,16 @@ namespace Supermarket.API.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");
 
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
                     b.Property<string>("UserName")
-                        .HasColumnType("character varying(256)")
-                        .HasMaxLength(256);
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AadharNumber")
-                        .IsUnique();
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");

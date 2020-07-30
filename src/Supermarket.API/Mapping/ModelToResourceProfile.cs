@@ -11,6 +11,7 @@ namespace Supermarket.API.Mapping
         public ModelToResourceProfile()
         {
             CreateMap<Category, CategoryResource>();
+            CreateMap<LoginUser, RegisteredUser>();
 
             CreateMap<Product, ProductResource>()
                 .ForMember(src => src.UnitOfMeasurement,

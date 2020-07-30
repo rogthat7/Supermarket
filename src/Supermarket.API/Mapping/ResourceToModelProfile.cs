@@ -10,6 +10,7 @@ namespace Supermarket.API.Mapping
         public ResourceToModelProfile()
         {
             CreateMap<SaveCategoryResource, Category>();
+            CreateMap<RegisteredUser, LoginUser>();
 
             CreateMap<SaveProductResource, Product>()
                 .ForMember(src => src.UnitOfMeasurement, opt => opt.MapFrom(src => (EUnitOfMeasurement)src.UnitOfMeasurement));

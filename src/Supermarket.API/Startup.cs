@@ -18,6 +18,9 @@ using Supermarket.API.Domain.Services;
 using Supermarket.API.Services;
 using AutoMapper;
 using Supermarket.API.Extensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Supermarket.API
 {
@@ -37,7 +40,7 @@ namespace Supermarket.API
                 options.UseNpgsql(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddIdentityServer()
@@ -45,6 +48,20 @@ namespace Supermarket.API
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)    
+            .AddJwtBearer(options =>    
+            {    
+                options.TokenValidationParameters = new TokenValidationParameters    
+                {    
+                    ValidateIssuer = true,    
+                    ValidateAudience = true,    
+                    ValidateLifetime = true,    
+                    ValidateIssuerSigningKey = true,    
+                    ValidIssuer = Configuration["Jwt:Issuer"],    
+                    ValidAudience = Configuration["Jwt:Issuer"],    
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))    
+                };    
+            });  
             services.AddControllersWithViews();
             services.AddRazorPages();
             

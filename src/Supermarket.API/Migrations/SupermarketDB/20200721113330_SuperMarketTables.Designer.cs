@@ -9,8 +9,8 @@ using Supermarket.API.Persistence.Contexts;
 namespace Supermarket.API.Migrations.SupermarketDB
 {
     [DbContext(typeof(SupermarketDBContext))]
-    [Migration("20200719195203_InitialCreateSuperMarket")]
-    partial class InitialCreateSuperMarket
+    [Migration("20200721113330_SuperMarketTables")]
+    partial class SuperMarketTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
