@@ -1,0 +1,57 @@
+.portal-upper-grid
+{ margin-top: 50px;
+    display: flex;
+}
+.content{
+        display: grid;
+        grid-template-columns: repeat(auto-fit,minmax(210px,max-content));
+        justify-content: center;
+    padding: initial;
+    gap: 35px;
+    
+    }
+
+    .no-text-decoration {
+        text-decoration: none;
+    }
+
+    
+    .iazi-tile.iazi-tile-simple {
+        -webkit-box-align: center;
+        align-items: center;
+        -webkit-box-pack: start;
+        justify-content: flex-start;
+        text-align: center;
+        padding: 45px;
+    }
+
+    .portal-tiles {
+        height: 160px;
+        min-width: 248px;
+        width: 248px;
+        max-width: 248px;
+        overflow: hidden;
+        margin-bottom: 10px;
+        padding: 0;
+        border-radius: 4px;
+        -webkit-border-radius: 4px;
+        box-shadow: 0 2px 4px 3px rgba(0,0,0,.14),0 2px 4px 3px rgba(0,0,0,.12),0 4px 7px 0 rgba(0,0,0,.2)!important;
+        box-sizing: border-box;
+        cursor: pointer;
+        flex-shrink: 0;
+        
+    }
+
+    .portal-tiles:hover {
+        background: rgba(198,202,0,.3);
+    }
+
+    .image-icon {
+        width: 75px;
+        height: 75px;
+        min-width: 75px;
+        min-height: 75px;
+        max-height: 75px;
+        max-width: 75px;
+        margin-top: -10px;
+    }
